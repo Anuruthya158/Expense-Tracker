@@ -30,13 +30,13 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/expense-tracker-pro.git
+git clone https://github.com/Anuruthya158/Expense-Tracker-pro.git
 Navigate to the folder:
 
 bash
 Copy code
 cd expense-tracker-pro
-Open index.html in your browser (double-click or open with Live Server)
+Open index.html in your browser
 
 📦 Folder Structure
 python
