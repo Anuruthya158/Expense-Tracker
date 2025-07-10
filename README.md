@@ -45,21 +45,12 @@ expense-tracker-pro/
 │
 ├── index.html        # Main HTML file
 ├── README.md         # You're reading it!
-└── (any other assets if added later)
-📸 Screenshots (Optional)
-You can add screenshots using Markdown like this:
+└── (any other assets if added later
 
-md
-Copy code
-![Dashboard Screenshot](screenshots/dashboard.png)
 💡 Future Enhancements (Ideas)
 Add localStorage support (currently using variable storage)
 
 Monthly expense analysis
-
-Dark mode toggle
-
-Export as PDF/Excel
 
 📚 Learnings
 This project helped me practice:
