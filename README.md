@@ -30,7 +30,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/Anuruthya158/Expense-Tracker-pro.git
+git clone https://github.com/Anuruthya158/Expense-Tracker.git
 Navigate to the folder:
 
 bash
