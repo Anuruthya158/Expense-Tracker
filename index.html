@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker Pro</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+</head>
+  <body>
+    <div class="container">
+      <h1>💰 Expense Tracker Pro</h1>
+
+      <!-- Summary Cards -->
+      <div class="summary">
+        <div class="summary-card">
+          <h3>Total Income</h3>
+          <div class="amount income" id="totalIncome">₹0.00</div>
+        </div>
+        <div class="summary-card">
+          <h3>Total Expenses</h3>
+          <div class="amount expense" id="totalExpense">₹0.00</div>
+        </div>
+        <div class="summary-card">
+          <h3>Net Balance</h3>
+          <div class="amount balance" id="netBalance">₹0.00</div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Income Form -->
+        <div class="form-section">
+          <h2>📈 Add Income</h2>
+          <form id="incomeForm">
+            <div class="form-group">
+              <label for="incomeDate">Date</label>
+              <input type="date" id="incomeDate" required />
+            </div>
+            <div class="form-group">
+              <label for="incomeDescription">Description</label>
+              <input
+                type="text"
+                id="incomeDescription"
+                placeholder="e.g., Salary, Freelance work"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="incomeCategory">Category</label>
+              <select id="incomeCategory" required>
+                <option value="">Select Category</option>
+                <option value="Salary">Salary</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Investment">Investment</option>
+                <option value="Business">Business</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="incomeAmount">Amount (₹)</label>
+              <input
+                type="number"
+                id="incomeAmount"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                required
+              />
+            </div>
+            <button type="submit">Add Income</button>
+            <div class="error-message" id="incomeError"></div>
+            <div class="success-message" id="incomeSuccess"></div>
+          </form>
+        </div>
+
+        <!-- Expense Form -->
+        <div class="form-section">
+          <h2>📉 Add Expense</h2>
+          <form id="expenseForm">
+            <div class="form-group">
+              <label for="expenseDate">Date</label>
+              <input type="date" id="expenseDate" required />
+            </div>
+            <div class="form-group">
+              <label for="expenseDescription">Description</label>
+              <input
+                type="text"
+                id="expenseDescription"
+                placeholder="e.g., Groceries, Fuel"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="expenseCategory">Category</label>
+              <select id="expenseCategory" required>
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="expenseAmount">Amount (₹)</label>
+              <input
+                type="number"
+                id="expenseAmount"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                required
+              />
+            </div>
+            <button type="submit">Add Expense</button>
+            <div class="error-message" id="expenseError"></div>
+            <div class="success-message" id="expenseSuccess"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Transactions Section -->
+      <div class="transactions-section">
+        <h2>📋 Transaction History</h2>
+        <div class="filters">
+          <div class="filter-group">
+            <label for="filterType">Filter by Type</label>
+            <select id="filterType">
+              <option value="all">All Transactions</option>
+              <option value="income">Income Only</option>
+              <option value="expense">Expenses Only</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filterCategory">Filter by Category</label>
+            <select id="filterCategory">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="transactions-list" id="transactionsList">
+          <!-- Transactions will be populated here -->
+        </div>
+
+        <div class="export-import">
+          <button onclick="exportData()">📤 Export Data</button>
+          <button onclick="document.getElementById('importFile').click()">
+            📥 Import Data
+          </button>
+          <input
+            type="file"
+            id="importFile"
+            accept=".json"
+            style="display: none"
+            onchange="importData(event)"
+          />
+        </div>
+      </div>
+
+      <!-- Chart Section -->
+      <div class="chart-container">
+        <h2>📊 Expense Distribution</h2>
+        <canvas id="expenseChart" class="chart-canvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Edit Transaction</h2>
+        <form id="editForm">
+          <div class="form-group">
+            <label for="editDate">Date</label>
+            <input type="date" id="editDate" required />
+          </div>
+          <div class="form-group">
+            <label for="editDescription">Description</label>
+            <input type="text" id="editDescription" required />
+          </div>
+          <div class="form-group">
+            <label for="editCategory">Category</label>
+            <select id="editCategory" required></select>
+          </div>
+          <div class="form-group">
+            <label for="editAmount">Amount (₹)</label>
+            <input type="number" id="editAmount" min="0" step="0.01" required />
+          </div>
+          <button type="submit">Update Transaction</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
